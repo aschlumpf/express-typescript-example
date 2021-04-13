@@ -21,7 +21,7 @@ export class Server {
     global.x = 10;
   }
 
-  public start() {
+  public start(): void {
     this.app.listen(settings.PORT);
     this.log.info(`Server started at ${settings.PORT}`);
   }

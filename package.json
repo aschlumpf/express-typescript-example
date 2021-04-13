@@ -30,7 +30,7 @@
 		"build:docker": "npm install && npm run build && npm prune --production && npm run build:docker:raw && npm install",
 		"build:docker:raw": "docker build -t kitanotori/express-typescript-example .",
 		"clear": "del-cli 'lib/*' 'log/*' '!.gitignore'",
-		"lint": "tslint --project tsconfig.json --config tslint.json --format stylish",
+		"lint": "npx eslint . --ext .ts",
 		"start": "cross-env NODE_ENV=production node .",
 		"start:dev": "cross-env NODE_ENV=development NODE_PATH=src tsc-watch --onSuccess \"node .\"",
 		"start:docker": "docker run -d -p 3000:3000 kitanotori/express-typescript-example",
@@ -51,8 +51,11 @@
 		"@types/morgan": "^1.9.2",
 		"@types/node": "^14.14.37",
 		"@types/winston": "^2.4.4",
+		"@typescript-eslint/eslint-plugin": "^4.22.0",
+		"@typescript-eslint/parser": "^4.22.0",
 		"absolute-path-converter": "^1.0.6",
 		"del-cli": "^3.0.1",
+		"eslint": "^7.24.0",
 		"jest": "^26.6.3",
 		"nodemon": "^2.0.7",
 		"ts-node": "^9.1.1",
@@ -60,5 +63,39 @@
 		"tslint": "^6.1.3",
 		"tslint-config-airbnb": "^5.11.2",
 		"typescript": "^4.2.4"
+	},
+	"eslintConfig": {
+		"env": {
+			"browser": true,
+			"jest": true
+		},
+		"parser": "@typescript-eslint/parser",
+		"plugins": [
+			"@typescript-eslint"
+		],
+		"extends": [
+			"eslint:recommended",
+			"plugin:@typescript-eslint/recommended"
+		],
+		"rules": {
+			"no-process-env": 0,
+			"overrides": 0,
+			"newline-after-var": 0,
+			"class-methods-use-this": 0,
+			"id-match": [
+				"error",
+				"^([$]|[A-Z]|[a-z]|[0-9]+)+([A-Z][a-z][0-9]+)*$"
+			],
+			"func-style": [
+				1,
+				"declaration",
+				{
+					"allowArrowFunctions": true
+				}
+			]
+		},
+		"parserOptions": {
+			"ecmaVersion": 9
+		}
 	}
 }

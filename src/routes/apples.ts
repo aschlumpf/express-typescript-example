@@ -1,10 +1,10 @@
 import * as Express from 'express';
 
-export const appleGet = (req: Express.Request, res: Express.Response) => {
+export const appleGet = (req: Express.Request, res: Express.Response): void => {
   const id: string = req.params.id;
   res.send({ id, message: 'apple' });
 };
 
-export const applesGet = (req: Express.Request, res: Express.Response) => {
+export const applesGet = (req: Express.Request, res: Express.Response): void => {
   res.send({ message: 'apples' });
 };
