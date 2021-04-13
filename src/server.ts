@@ -10,7 +10,7 @@ import { initRoutes } from 'routes';
 
 export class Server {
   public app: Express.Application;
-  public log: Winston.LoggerInstance;
+  public log: Winston.Logger;
   public router: Express.Router;
 
   constructor() {
@@ -37,29 +37,27 @@ export class Server {
 
   private setLogger() {
     // Set up application logging
-    this.log = new Winston.Logger({
+    this.log = Winston.createLogger({
       transports: [
         new Winston.transports.File({
           level: 'info',
           filename: Path.resolve(settings.LOG_PATH, 'server.log'),
           handleExceptions: true,
-          json: true,
           maxsize: 5242880, // 5MB
           maxFiles: 5,
-          colorize: false,
+          format: Winston.format.json(),
         }),
         new Winston.transports.Console({
           level: 'debug',
           handleExceptions: true,
-          json: false,
-          colorize: true,
+          format: Winston.format.json(),
         }),
       ],
       exitOnError: false,
     });
 
     // Set up HTTP request logging
-    const morganOptions: Morgan.Options = {
+    const morganOptions: Morgan.Options<any, any> = {
       stream: {
         write: (message) => {
           this.log.info(message);
