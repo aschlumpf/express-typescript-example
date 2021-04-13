@@ -5,8 +5,8 @@ import * as Express from 'express';
 import * as Morgan from 'morgan';
 import * as Winston from 'winston';
 
-import { settings } from 'settings';
-import { initRoutes } from 'routes';
+import { settings } from './settings';
+import { initRoutes } from './routes';
 
 export class Server {
   public app: Express.Application;
@@ -28,6 +28,7 @@ export class Server {
 
   private setConfig() {
     this.app.use('/', Express.static(settings.PUBLIC_PATH));
+    console.log('IN!');
     this.app.use(BodyParser.json());
   }
 

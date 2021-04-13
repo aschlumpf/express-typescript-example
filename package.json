@@ -32,7 +32,7 @@
 		"clear": "del-cli 'lib/*' 'log/*' '!.gitignore'",
 		"lint": "tslint --project tsconfig.json --config tslint.json --format stylish",
 		"start": "cross-env NODE_ENV=production node .",
-		"start:dev": "cross-env NODE_ENV=development NODE_PATH=src nodemon -e ts -w src -x ts-node --inspect src/app.ts",
+		"start:dev": "cross-env NODE_ENV=development NODE_PATH=src TS_NODE_FILES=true nodemon -e ts -w src -x node -r ts-node/register --inspect src/app.ts",
 		"start:docker": "docker run -d -p 3000:3000 kitanotori/express-typescript-example",
 		"test": "cross-env NODE_ENV=test mocha --recursive lib/test"
 	},
