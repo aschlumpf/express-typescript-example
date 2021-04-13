@@ -5,8 +5,8 @@ import * as Express from 'express';
 import * as Morgan from 'morgan';
 import * as Winston from 'winston';
 
-import { settings } from 'settings';
-import { initRoutes } from 'routes';
+import { settings } from './settings';
+import { initRoutes } from './routes';
 
 export class Server {
   public app: Express.Application;
@@ -23,12 +23,13 @@ export class Server {
 
   public start() {
     this.app.listen(settings.PORT);
-    this.log.info(`Server started at ${settings.PORT}`);
+    this.log.info(`Serverrrrrrrr started at ${settings.PORT}`);
   }
 
   private setConfig() {
     this.app.use('/', Express.static(settings.PUBLIC_PATH));
     this.app.use(BodyParser.json());
+    console.log('hello!');
   }
 
   private setRoutes() {

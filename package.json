@@ -26,13 +26,13 @@
 		"node": ">=8.2"
 	},
 	"scripts": {
-		"build": "npm run lint && npm run clear && tsc && abspath",
+		"build": "npm run lint && npm run clear && tsc",
 		"build:docker": "npm install && npm run build && npm prune --production && npm run build:docker:raw && npm install",
 		"build:docker:raw": "docker build -t kitanotori/express-typescript-example .",
 		"clear": "del-cli 'lib/*' 'log/*' '!.gitignore'",
 		"lint": "tslint --project tsconfig.json --config tslint.json --format stylish",
 		"start": "cross-env NODE_ENV=production node .",
-		"start:dev": "cross-env NODE_ENV=development NODE_PATH=src nodemon -e ts -w src -x ts-node --inspect src/app.ts",
+		"start:dev": "cross-env NODE_ENV=development NODE_PATH=src nodemon --watch src -e ts --exec 'concurrently \"tsc -w\" \"node --inspect .\"'",
 		"start:docker": "docker run -d -p 3000:3000 kitanotori/express-typescript-example",
 		"test": "cross-env NODE_ENV=test mocha --recursive lib/test"
 	},
@@ -53,6 +53,7 @@
 		"@types/winston": "^2.4.4",
 		"absolute-path-converter": "^1.0.6",
 		"chai": "^4.3.4",
+		"concurrently": "^6.0.2",
 		"del-cli": "^3.0.1",
 		"mocha": "^8.3.2",
 		"nodemon": "^2.0.7",
