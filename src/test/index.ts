@@ -1,13 +1,15 @@
 import { assert } from 'chai';
 import 'mocha';
 
-const promiseTest = (): Promise<number> => new Promise((resolve, reject) => {
-	resolve(1);
-});
+const promiseTest = (): Promise<number> =>
+  new Promise((resolve, reject) => {
+    resolve(1);
+  });
 
 describe('Example async/await test', () => {
-	it('awaits promise', async () => {
-		const x = await promiseTest();
-		assert.equal(x, 1);
-	});
+  it('awaits promise', async () => {
+    const x = await promiseTest();
+    // assert.equal(1, 2);
+    assert.equal(x, 1);
+  });
 });
